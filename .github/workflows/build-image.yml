@@ -12,8 +12,12 @@ jobs:
       - name: Log in to docker
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+#         with:
+#           username: ${{ secrets.DOCKER_HUB_USERNAME }}
+#           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Set up docker buildx
         uses: docker/setup-buildx-action@v1
       - name: Build and push Perl 5.14 Image
@@ -23,7 +27,7 @@ jobs:
           file: ./Dockerfile
           build-args: BASE_IMAGE=${{ secrets.DOCKER_HUB_USERNAME }}/perl-images:perl-5.014.004-base
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/perl-images:perl-5.014.004
+          tags: ghcr.io/${{ secrets.DOCKER_HUB_USERNAME }}/perl-images:perl-5.014.004
       - name: Build and push Perl 5.30 Image
         uses: docker/build-push-action@v2
         with:
@@ -31,4 +35,4 @@ jobs:
           file: ./Dockerfile
           build-args: BASE_IMAGE=library/perl:5.30-buster
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/perl-images:perl-5.030.001
+          tags: ghcr.io/${{ secrets.DOCKER_HUB_USERNAME }}/perl-images:perl-5.030.001
