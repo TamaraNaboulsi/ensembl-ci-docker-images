@@ -33,7 +33,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/perl-images:perl-5.014.004
-            ghcr.io/ensembl-ci-docker-images:perl-5.014.004
+            ghcr.io/tamaranaboulsi/ensembl-ci-docker-images:perl-5.014.004
 #       - name: Build and push Perl 5.30 Image
 #         uses: docker/build-push-action@v2
 #         with:
